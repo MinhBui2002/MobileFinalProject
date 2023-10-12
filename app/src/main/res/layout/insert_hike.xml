@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    >
+
+    <TextView android:id="@+id/new_contact_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:lineSpacingExtra="10sp"
+        android:text="New Contact"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/edtName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:gravity="top"
+        android:hint="Hike name"
+        android:inputType="textCapSentences|textMultiLine"
+        android:lines="4"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/edtLocation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:gravity="top"
+        android:hint="Location"
+        android:inputType="textCapSentences|textMultiLine"
+        android:lines="4"
+        android:textSize="16sp" />
+
+
+    <Button
+        android:id="@+id/btnDatePicker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@color/purple_500"
+        android:text="Date picking"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp" />
+
+    <RadioGroup
+        android:id="@+id/rgrpParking"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="10dp"
+        android:gravity="center">
+
+    <!--adding a radio button -->
+    <RadioButton
+        android:id="@+id/rbtnYes"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:checked="false"
+        android:padding="4dp"
+        android:text="Yes"
+        android:textAlignment="center"
+        android:textSize="20sp" />
+
+    <!--adding a radio button -->
+    <RadioButton
+        android:id="@+id/rbtnNo"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:checked="false"
+        android:padding="4dp"
+        android:text="no"
+        android:textAlignment="center"
+        android:textSize="20sp" />
+    </RadioGroup>
+
+    <EditText
+        android:id="@+id/edtLength"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:gravity="top"
+        android:hint="Distance"
+        android:inputType="textCapSentences|textMultiLine"
+        android:lines="4"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/edtLevel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:gravity="top"
+        android:hint="Level"
+        android:inputType="textCapSentences|textMultiLine"
+        android:lines="4"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/edtDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:gravity="top"
+        android:hint="Description"
+        android:inputType="textCapSentences|textMultiLine"
+        android:lines="4"
+        android:textSize="16sp" />
+
+    <!--  -->
+
+<!--    <ImageView-->
+<!--        android:id="@+id/image_select"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        tools:srcCompat="@tools:sample/avatars" />-->
+
+<!--    <Button-->
+<!--        android:id="@+id/button"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Select image" />-->
+
+</LinearLayout>
