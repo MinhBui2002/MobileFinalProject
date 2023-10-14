@@ -69,8 +69,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 cursor.getString(cursor.getColumnIndexOrThrow(Hike.COLUMN_NAME)),
                 cursor.getString(cursor.getColumnIndexOrThrow(Hike.COLUMN_LOCATION)),
                 cursor.getString(cursor.getColumnIndexOrThrow(Hike.COLUMN_DATE)),
-                parkingAvailability,
-                cursor.getFloat(cursor.getColumnIndexOrThrow(Hike.COLUMN_LENGTH)),
+                cursor.getInt(cursor.getColumnIndexOrThrow(Hike.COLUMN_PARKING)),
+                cursor.getString(cursor.getColumnIndexOrThrow(Hike.COLUMN_LENGTH)),
                 cursor.getString(cursor.getColumnIndexOrThrow(Hike.COLUMN_LEVEL)),
                 cursor.getString(cursor.getColumnIndexOrThrow(Hike.COLUMN_DESCRIPTION)),
                 cursor.getInt(cursor.getColumnIndexOrThrow(Hike.COLUMN_ID))
@@ -101,8 +101,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 hike.setName(cursor.getString(cursor.getColumnIndexOrThrow(Hike.COLUMN_NAME)));
                 hike.setLocation(cursor.getString(cursor.getColumnIndexOrThrow(Hike.COLUMN_LOCATION)));
                 hike.setDate(cursor.getString(cursor.getColumnIndexOrThrow(Hike.COLUMN_DATE)));
-                hike.setParkingAvailable(parkingAvailability);
-                hike.setLength(cursor.getFloat(cursor.getColumnIndexOrThrow(Hike.COLUMN_LENGTH)));
+                hike.setParkingAvailable(cursor.getInt(cursor.getColumnIndexOrThrow(Hike.COLUMN_PARKING)));
+                hike.setLength(cursor.getString(cursor.getColumnIndexOrThrow(Hike.COLUMN_LENGTH)));
                 hike.setLevel(cursor.getString(cursor.getColumnIndexOrThrow(Hike.COLUMN_LEVEL)));
                 hike.setDescription(cursor.getString(cursor.getColumnIndexOrThrow(Hike.COLUMN_DESCRIPTION)));
                 hikes.add(hike);
@@ -117,17 +117,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     // Insert Data into Database
-    public long insertHike(Hike contact) {
+    public long insertHike(String name, String location, String date, int parkingAvailable, String length, String level, String description) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(Hike.COLUMN_NAME, contact.getName());
-        values.put(Hike.COLUMN_LOCATION, contact.getLocation());
-        values.put(Hike.COLUMN_DATE, contact.getDate());
-        values.put(Hike.COLUMN_PARKING, contact.isParkingAvailable());
-        values.put(Hike.COLUMN_LENGTH, contact.getLength());
-        values.put(Hike.COLUMN_LEVEL, contact.getLevel());
-        values.put(Hike.COLUMN_DESCRIPTION, contact.getDescription());
+        values.put(Hike.COLUMN_NAME, name);
+        values.put(Hike.COLUMN_LOCATION, location);
+        values.put(Hike.COLUMN_DATE, date);
+        values.put(Hike.COLUMN_PARKING, parkingAvailable);
+        values.put(Hike.COLUMN_LENGTH, length);
+        values.put(Hike.COLUMN_LEVEL, level);
+        values.put(Hike.COLUMN_DESCRIPTION, description);
+
 
         long id = db.insert(Hike.TABLE_NAME, null, values);
 

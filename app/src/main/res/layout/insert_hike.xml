@@ -9,12 +9,12 @@
     android:padding="10dp"
     >
 
-    <TextView android:id="@+id/new_contact_title"
+    <TextView android:id="@+id/hike_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="15dp"
         android:lineSpacingExtra="10sp"
-        android:text="New Contact"
+        android:text="New hike"
         android:textSize="20sp"
         android:textStyle="bold" />
 
@@ -40,23 +40,35 @@
         android:lines="4"
         android:textSize="16sp" />
 
+    <TextView
+        android:id="@+id/txtDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:gravity="top"
+        android:hint="Date"
+        android:inputType="textCapSentences|textMultiLine"
+        android:lines="4"
+        android:textSize="16sp" />
+
 
     <Button
         android:id="@+id/btnDatePicker"
-        android:layout_width="match_parent"
+        android:layout_width="208dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:background="@color/purple_500"
+        android:background="@color/teal_700"
         android:text="Date picking"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
-        android:textSize="24sp" />
+        android:textSize="16sp" />
 
     <RadioGroup
         android:id="@+id/rgrpParking"
-        android:layout_width="match_parent"
+        android:layout_width="392dp"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_gravity="center"
@@ -65,29 +77,36 @@
         android:layout_marginEnd="10dp"
         android:gravity="center">
 
-    <!--adding a radio button -->
-    <RadioButton
-        android:id="@+id/rbtnYes"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:checked="false"
-        android:padding="4dp"
-        android:text="Yes"
-        android:textAlignment="center"
-        android:textSize="20sp" />
+        <!--adding a radio button -->
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Parking availability" />
 
-    <!--adding a radio button -->
-    <RadioButton
-        android:id="@+id/rbtnNo"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:checked="false"
-        android:padding="4dp"
-        android:text="no"
-        android:textAlignment="center"
-        android:textSize="20sp" />
+        <!--adding a radio button -->
+        <RadioButton
+            android:id="@+id/rbtnYes"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:checked="false"
+            android:padding="4dp"
+            android:text="Yes"
+            android:textAlignment="center"
+            android:textSize="20sp" />
+
+        <RadioButton
+            android:id="@+id/rbtnNo"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:checked="false"
+            android:padding="4dp"
+            android:text="no"
+            android:textAlignment="center"
+            android:textSize="20sp" />
+
     </RadioGroup>
 
     <EditText

@@ -27,8 +27,8 @@ public class Hike {
     private String name;
     private String location;
     private String date;
-    private boolean parkingAvailable;
-    private float length;
+    private int parkingAvailable;
+    private String length;
     private String level;
     private String description;
 
@@ -43,7 +43,7 @@ public class Hike {
         this.id = id;
     }
 
-    public Hike(String name, String location, String date, boolean parkingAvailable, float length, String level, String description, int id) {
+    public Hike(String name, String location, String date, int parkingAvailable, String length, String level, String description, int id) {
         this.name = name;
         this.location = location;
         this.date = date;
@@ -78,19 +78,19 @@ public class Hike {
         this.date = date;
     }
 
-    public boolean isParkingAvailable() {
+    public int isParkingAvailable() {
         return parkingAvailable;
     }
 
-    public void setParkingAvailable(boolean parkingAvailable) {
+    public void setParkingAvailable(int parkingAvailable) {
         this.parkingAvailable = parkingAvailable;
     }
 
-    public float getLength() {
+    public String getLength() {
         return length;
     }
 
-    public void setLength(float length) {
+    public void setLength(String length) {
         this.length = length;
     }
 

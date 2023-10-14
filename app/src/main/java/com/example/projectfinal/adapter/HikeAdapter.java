@@ -32,8 +32,8 @@ public class HikeAdapter extends RecyclerView.Adapter<HikeAdapter.HikeViewHolder
 
         public HikeViewHolder(@NonNull View itemView){
             super(itemView);
-            this.name = itemView.findViewById(R.id.name);
-            this.location = itemView.findViewById(R.id.location);
+            this.name = itemView.findViewById(R.id.txtName);
+            this.location = itemView.findViewById(R.id.txtLocation);
         }
     }
 
@@ -48,7 +48,7 @@ public class HikeAdapter extends RecyclerView.Adapter<HikeAdapter.HikeViewHolder
     @Override
     public HikeAdapter.HikeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).
-                inflate(R.layout.hike_list_layout,parent,false);
+                inflate(R.layout.list_hike,parent,false);
         return new HikeViewHolder(itemView);
     }
 
@@ -66,23 +66,23 @@ public class HikeAdapter extends RecyclerView.Adapter<HikeAdapter.HikeViewHolder
         editButton.setOnClickListener(new View.OnClickListener() {
               @Override
             public void onClick(View view) {
-                mainActivity.addAndEditHike(true,hike, positions);
+                mainActivity.addAndEditHikes(true, hike, positions);
             }
         });
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //go to detail hike's detail view
-                Intent intent = new Intent(context, ObservationActivity.class);
-                intent.putExtra("hikeId", hike.getId());
-                Log.d(
-                        "Hike ID",
-                        String.valueOf(hike.getId())
-                );
-                context.startActivity(intent);
-            }
-        });
+//        holder.itemView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                //go to detail hike's detail view
+//                Intent intent = new Intent(context, ObservationActivity.class);
+//                intent.putExtra("hikeId", hike.getId());
+//                Log.d(
+//                        "Hike ID",
+//                        String.valueOf(hike.getId())
+//                );
+//                context.startActivity(intent);
+//            }
+//        });
 
     }
 
