@@ -6,21 +6,21 @@ public class Hike {
 
     public static final String TABLE_NAME = "hikes";
 
-    public static final String COLUMN_ID = "hike_id";
+    public static final String COL_ID = "hike_id";
 
-    public static final String COLUMN_NAME = "hike_name";
+    public static final String COL_NAME = "hike_name";
 
-    public static  final String COLUMN_LOCATION = "hike_location";
+    public static  final String COL_LOCATION = "hike_location";
 
-    public static final String COLUMN_DATE = "hike_date";
+    public static final String COL_DATE = "hike_date";
 
-    public static final String COLUMN_PARKING = "hike_parking";
+    public static final String COL_PARKING = "hike_parking";
 
-    public static final String COLUMN_LENGTH = "hike_length";
+    public static final String COL_LENGTH = "hike_length";
 
-    public static final String COLUMN_LEVEL = "hike_level";
+    public static final String COL_LEVEL = "hike_level";
 
-    public static final String COLUMN_DESCRIPTION = "hike_description";
+    public static final String COL_DESCRIPTION = "hike_description";
 
 
 
@@ -115,13 +115,13 @@ public class Hike {
 
     public static final String CREATE_TABLE =
             "CREATE TABLE " + TABLE_NAME + "("
-                    + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                    + COLUMN_NAME + " TEXT,"
-                    + COLUMN_LOCATION + " TEXT,"
-                    + COLUMN_DATE + " TEXT,"
-                    + COLUMN_PARKING + " TEXT,"
-                    + COLUMN_LENGTH + " TEXT,"
-                    + COLUMN_LEVEL + " TEXT,"
-                    + COLUMN_DESCRIPTION + " TEXT"
+                    + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                    + COL_NAME + " TEXT,"
+                    + COL_LOCATION + " TEXT,"
+                    + COL_DATE + " TEXT,"
+                    + COL_PARKING + " TEXT,"
+                    + COL_LENGTH + " TEXT,"
+                    + COL_LEVEL + " TEXT,"
+                    + COL_DESCRIPTION + " TEXT"
                     + ")";
 }

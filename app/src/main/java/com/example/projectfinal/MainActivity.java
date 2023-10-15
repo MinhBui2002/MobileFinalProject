@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         // Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("My Favorite Hikes");
+        getSupportActionBar().setTitle("My Hikes");
 
 
         // RecyclerVIew
@@ -81,8 +81,19 @@ public class MainActivity extends AppCompatActivity {
                 addAndEditHikes(false, null, -1);
             }
         });
+
+        Button btnDeleteAll = findViewById(R.id.btnDeleteAll);
+        btnDeleteAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DeleteAllHikes();
+            }
+        });
     }
 
+
+    // Create and update hike based on the boolean isUpdated and the position of the hike
+    // ideas from Mr. Manh 's "Contact App" project
     public void addAndEditHikes(final boolean isUpdated, final Hike hike, final int position) {
         LayoutInflater layoutInflaterAndroid = LayoutInflater.from(getApplicationContext());
         View view = layoutInflaterAndroid.inflate(R.layout.insert_hike, null);
@@ -117,42 +128,40 @@ public class MainActivity extends AppCompatActivity {
             hikeDescription.setText(hike.getDescription());
 
             int parkingAvailable = hike.isParkingAvailable();
-            RadioButton radioButton;
             if (parkingAvailable != 1) {
-                radioButton = view.findViewById(R.id.rbtnNo);
-            } else {
-                radioButton = view.findViewById(R.id.rbtnYes);
+                RadioButton radioButton = view.findViewById(parkingAvailable);
+                radioButton.setChecked(true);
             }
-            radioButton.setChecked(true);
         }
 
+
+        // alert dialog to create or update hike based on the input
         alertDialogBuilderUserInput.setCancelable(false)
                 .setPositiveButton(isUpdated ? "Update" : "Save", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        if (TextUtils.isEmpty(hikeName.getText().toString())) {
-                            Toast.makeText(MainActivity.this, "Please Enter a Name", Toast.LENGTH_SHORT).show();
-                        } else {
-                            dialogInterface.dismiss();
-                        }
 
+
+
+                        // Data validation
+                        // ideas from Mr. Manh 's "Contact App" project
                         if (hikeName.getText().toString().isEmpty()) {
-                            Toast.makeText(MainActivity.this, "Hike's name invalid", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "You have entered an invalid hike name. Please enter the hike name again", Toast.LENGTH_SHORT).show();
                             return;
                         } else if (hikeLocation.getText().toString().isEmpty()) {
-                            Toast.makeText(MainActivity.this, "Hike's location invalid", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "You have entered an invalid hike location. Please enter the hike location again", Toast.LENGTH_SHORT).show();
                             return;
                         } else if (hkeDate.getText().toString().isEmpty() || hkeDate.getText().toString().equals("Select Date")) {
-                            Toast.makeText(MainActivity.this, "Hike's date invalid", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "You have entered an invalid hike date. Please enter the hike date again", Toast.LENGTH_SHORT).show();
                             return;
                         } else if (hikeLength.getText().toString().isEmpty()) {
-                            Toast.makeText(MainActivity.this, "Hike's length invalid", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "You have entered an invalid hike date. Please enter the hike date again", Toast.LENGTH_SHORT).show();
                             return;
                         } else if (hikeParking.getCheckedRadioButtonId() == -1) {
-                            Toast.makeText(MainActivity.this, "Hike's parking available is invalid", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "You haven't choose the parking available.", Toast.LENGTH_SHORT).show();
                             return;
                         } else if (hikeLevel.getText().toString().isEmpty()) {
-                            Toast.makeText(MainActivity.this, "Hike's level invalid", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "You have entered an invalid hike level. Please enter the hike level again", Toast.LENGTH_SHORT).show();
                             return;
 
                         }
@@ -202,6 +211,14 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void DeleteAllHikes() {
+        db.deleteAllHikes();
+        hikeArrayList.clear();
+        hikeAdapter.notifyDataSetChanged();
+    }
+
+
+    // Ideas is referenced from https://www.digitalocean.com/community/tutorials/android-date-time-picker-dialog
     private void popupDatePickerDialog(Button hikeDatePicker,TextView hkeDate) {
         final Calendar c = Calendar.getInstance();
 
@@ -229,11 +246,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
+    // create new hike
+    // ideas from Mr. Manh 's "Contact App" project
     private void createHike(String name, String location, String date, int parking, String length, String level, String description) {
 
-        if(description.isEmpty()){
-            description = "No description available";
-        }
+
         long id = db.insertHike(name, location, date, parking, length, level, description);
         Hike hike = db.getHike(id);
         if (hike != null) {
@@ -242,10 +260,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+    // ideas from Mr. Manh 's "Contact App" project
     private void updateHike(String name, String location, String date, int parking, String length, String level, String description, int position) {
-        if(description.isEmpty()){
-            description = "No description available";
-        }
+
         Hike hike = hikeArrayList.get(position);
         hike.setName(name);
         hike.setLocation(location);
