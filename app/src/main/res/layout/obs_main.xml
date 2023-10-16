@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".ObservationActivity"
+    tools:context=".ObserveActivity"
     tools:showIn="@layout/detail_hike">
 
     <androidx.recyclerview.widget.RecyclerView

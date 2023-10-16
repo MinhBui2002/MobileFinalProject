@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.projectfinal.MainActivity;
+import com.example.projectfinal.ObserveActivity;
 import com.example.projectfinal.R;
 import com.example.projectfinal.db.entity.Hike;
 
@@ -66,23 +67,23 @@ public class HikeAdapter extends RecyclerView.Adapter<HikeAdapter.HikeViewHolder
         editButton.setOnClickListener(new View.OnClickListener() {
               @Override
             public void onClick(View view) {
-                mainActivity.addAndEditHikes(true, hike, positions);
+                mainActivity.createOrUpdateHike(true, hike, positions);
             }
         });
 
-//        holder.itemView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                //go to detail hike's detail view
-//                Intent intent = new Intent(context, ObservationActivity.class);
-//                intent.putExtra("hikeId", hike.getId());
-//                Log.d(
-//                        "Hike ID",
-//                        String.valueOf(hike.getId())
-//                );
-//                context.startActivity(intent);
-//            }
-//        });
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //go to detail hike's detail view
+                Intent intent = new Intent(context, ObserveActivity.class);
+                intent.putExtra("hikeId", hike.getId());
+                Log.d(
+                        "Hike ID",
+                        String.valueOf(hike.getId())
+                );
+                context.startActivity(intent);
+            }
+        });
 
     }
 

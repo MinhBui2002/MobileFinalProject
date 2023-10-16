@@ -5,21 +5,16 @@ import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -78,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addAndEditHikes(false, null, -1);
+                createOrUpdateHike(false, null, -1);
             }
         });
 
@@ -94,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Create and update hike based on the boolean isUpdated and the position of the hike
     // ideas from Mr. Manh 's "Contact App" project
-    public void addAndEditHikes(final boolean isUpdated, final Hike hike, final int position) {
+    public void createOrUpdateHike(final boolean isUpdated, final Hike hike, final int position) {
         LayoutInflater layoutInflaterAndroid = LayoutInflater.from(getApplicationContext());
         View view = layoutInflaterAndroid.inflate(R.layout.insert_hike, null);
 
@@ -177,7 +172,23 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
 
                         if (isUpdated){
-                            DeleteHike(hike, position);
+                            // confirm delete
+                            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                            builder.setTitle("Delete hike");
+                            builder.setMessage("Are you sure you want to delete this hike?");
+                            builder.setCancelable(true);
+                            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    DeleteHike(hike, position);
+                                }
+                            }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.cancel();
+                                }
+                            }).show(    );
+
                         }else {
                             dialogInterface.cancel();
                         }
@@ -187,11 +198,9 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
-                        if (isUpdated){
+
                             dialogInterface.cancel();
-                        }else {
-                            dialogInterface.cancel();
-                        }
+
 
                     }
                 });

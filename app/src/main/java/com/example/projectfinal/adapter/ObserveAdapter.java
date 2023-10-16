@@ -11,17 +11,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.projectfinal.ObservationActivity;
+import com.example.projectfinal.ObserveActivity;
 import com.example.projectfinal.R;
 import com.example.projectfinal.db.entity.Observation;
 
 import java.util.ArrayList;
 
-public class ObservationAdapter extends RecyclerView.Adapter<ObservationAdapter.ObservationViewHolder> {
+public class ObserveAdapter extends RecyclerView.Adapter<ObserveAdapter.ObservationViewHolder> {
     //  Variables
     private Context context;
-    private ArrayList<Observation> observationsList;
-    private ObservationActivity observationActivity;
+    private ArrayList<Observation> obsList;
+    private ObserveActivity observeActivity;
 
     //  ViewHolder
     public class ObservationViewHolder extends RecyclerView.ViewHolder {
@@ -31,23 +31,23 @@ public class ObservationAdapter extends RecyclerView.Adapter<ObservationAdapter.
 
         public ObservationViewHolder(@NonNull View itemView) {
             super(itemView);
-            this.name = itemView.findViewById(R.id.name);
-            this.time = itemView.findViewById(R.id.time);
+            this.name = itemView.findViewById(R.id.txtObserveName);
+            this.time = itemView.findViewById(R.id.txtObserveTime);
             this.editButton = itemView.findViewById(R.id.editButton);
         }
     }
 
     //  Constructor
-    public ObservationAdapter(Context context, ArrayList<Observation> observations, ObservationActivity observationActivity) {
+    public ObserveAdapter(Context context, ArrayList<Observation> observations, ObserveActivity observeActivity) {
         this.context = context;
-        this.observationsList = observations;
-        this.observationActivity = observationActivity;
+        this.obsList = observations;
+        this.observeActivity = observeActivity;
     }
 
     //  Create ViewHolder
     @NonNull
     @Override
-    public ObservationAdapter.ObservationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ObserveAdapter.ObservationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).
                 inflate(R.layout.list_obs, parent, false);
         return new ObservationViewHolder(itemView);
@@ -55,15 +55,15 @@ public class ObservationAdapter extends RecyclerView.Adapter<ObservationAdapter.
 
     //  Bind data to ViewHolder
     @Override
-    public void onBindViewHolder(@NonNull ObservationAdapter.ObservationViewHolder holder, @SuppressLint("RecyclerView") int positions) {
-        final Observation observation = observationsList.get(positions);
+    public void onBindViewHolder(@NonNull ObserveAdapter.ObservationViewHolder holder, @SuppressLint("RecyclerView") int positions) {
+        final Observation observation = obsList.get(positions);
         holder.name.setText(observation.getName());
         holder.time.setText(observation.getTime());
 
         holder.editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                observationActivity.addAndEditObservation(true, observation, positions, observation.getHikeId());
+                observeActivity.createOrUpdateObservation(true, observation, positions, observation.getHikeId());
             }
         });
 
@@ -71,26 +71,26 @@ public class ObservationAdapter extends RecyclerView.Adapter<ObservationAdapter.
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                observationActivity.openObsDetail(observation);
+                observeActivity.openObsDetail(observation);
             }
         });
     }
 
     //create new observation
     public void createNewObservation(Observation observation) {
-        observationsList.add(observation);
+        obsList.add(observation);
         notifyDataSetChanged();
     }
 
     //update observation
     public void updateObservation(Observation observation, int position) {
-        observationsList.set(position, observation);
+        obsList.set(position, observation);
         notifyDataSetChanged();
     }
 
     //delete observation
     public void deleteObservation(int position) {
-        observationsList.remove(position);
+        obsList.remove(position);
         notifyDataSetChanged();
     }
 
@@ -99,6 +99,6 @@ public class ObservationAdapter extends RecyclerView.Adapter<ObservationAdapter.
     //  Get number of items in list
     @Override
     public int getItemCount() {
-        return observationsList.size();
+        return obsList.size();
     }
 }

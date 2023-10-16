@@ -191,7 +191,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 cursor.getString(cursor.getColumnIndexOrThrow(Hike.COL_LENGTH)),
                 cursor.getString(cursor.getColumnIndexOrThrow(Hike.COL_LEVEL)),
                 cursor.getString(cursor.getColumnIndexOrThrow(Hike.COL_DESCRIPTION)),
-                cursor.getInt(cursor.getColumnIndexOrThrow(Hike.COL_ID))
+                cursor.getLong(cursor.getColumnIndexOrThrow(Hike.COL_ID))
         );
 
         cursor.close();

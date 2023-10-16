@@ -32,18 +32,18 @@ public class Hike {
     private String level;
     private String description;
 
-    private int id;
+    private long id;
 
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public Hike(String name, String location, String date, int parkingAvailable, String length, String level, String description, int id) {
+    public Hike(String name, String location, String date, int parkingAvailable, String length, String level, String description, long id) {
         this.name = name;
         this.location = location;
         this.date = date;
