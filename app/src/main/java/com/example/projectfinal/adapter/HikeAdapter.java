@@ -119,11 +119,22 @@ public class HikeAdapter extends RecyclerView.Adapter<HikeAdapter.HikeViewHolder
                 // If the search query is empty, show all hikes.
                 filteredList.addAll(hikesListAll);
             } else {
-                // Filter hikes based on the name.
+                // Filter hikes based on the name, location, length, level, date, and description.
                 for (Hike hike : hikesListAll) {
                     if (hike.getName().toLowerCase().contains(charSequence.toString().toLowerCase())) {
                         filteredList.add(hike);
+                    } else if (hike.getLocation().toLowerCase().contains(charSequence.toString().toLowerCase())) {
+                        filteredList.add(hike);
+                    } else if (hike.getLength().toLowerCase().contains(charSequence.toString().toLowerCase())) {
+                        filteredList.add(hike);
+                    } else if (hike.getLevel().toLowerCase().contains(charSequence.toString().toLowerCase())) {
+                        filteredList.add(hike);
+                    } else if (hike.getDate().toLowerCase().contains(charSequence.toString().toLowerCase())) {
+                        filteredList.add(hike);
+                    } else if (hike.getDescription().toLowerCase().contains(charSequence.toString().toLowerCase())) {
+                        filteredList.add(hike);
                     }
+
                 }
             }
             FilterResults filterResults = new FilterResults();

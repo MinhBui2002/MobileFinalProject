@@ -8,18 +8,22 @@
 
     <TextView
         android:id="@+id/popupTitle"
+        style="@style/Widget.MaterialComponents.Snackbar.TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:text="Add a new observation"
+        android:fontFamily="sans-serif"
+        android:text="Add observation"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="#000000"
         android:textSize="24sp" />
 
 
     <EditText
         android:id="@+id/detailObsName"
+        style="@style/Widget.Material3.TextInputEditText.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -31,24 +35,30 @@
         android:textColor="#000000"
         android:textColorHint="#000000"
         android:textSize="24sp" />
+
     <TextView
+        style="@style/Widget.Material3.MaterialTimePicker.Display.HelperText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:text="Pick observation time (HH:MM)"
+        android:text="Observation time"
         android:textColor="#000000"
         android:textSize="24sp" />
 
     <Button
         android:id="@+id/detailObsTime"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="12dp"
+        android:gravity="center"
         android:text="Time picker" />
 
     <EditText
         android:id="@+id/detailObsComment"
+        style="@style/Widget.Material3.TextInputEditText.OutlinedBox.Dense"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"

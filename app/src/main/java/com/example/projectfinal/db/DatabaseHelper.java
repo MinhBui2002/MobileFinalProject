@@ -169,7 +169,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         Hike.COL_PARKING,
                         Hike.COL_LENGTH,
                         Hike.COL_LEVEL,
-                        Hike.COL_DESCRIPTION,},
+                        Hike.COL_DESCRIPTION,
+                        Hike.COL_IMAGE},
                 Hike.COL_ID + "=?",
                 new String[]{
                         String.valueOf(id)
@@ -191,7 +192,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 cursor.getString(cursor.getColumnIndexOrThrow(Hike.COL_LENGTH)),
                 cursor.getString(cursor.getColumnIndexOrThrow(Hike.COL_LEVEL)),
                 cursor.getString(cursor.getColumnIndexOrThrow(Hike.COL_DESCRIPTION)),
+                cursor.getBlob(cursor.getColumnIndexOrThrow(Hike.COL_IMAGE)),
                 cursor.getLong(cursor.getColumnIndexOrThrow(Hike.COL_ID))
+
         );
 
         cursor.close();
@@ -221,6 +224,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 hike.setLength(cursor.getString(cursor.getColumnIndexOrThrow(Hike.COL_LENGTH)));
                 hike.setLevel(cursor.getString(cursor.getColumnIndexOrThrow(Hike.COL_LEVEL)));
                 hike.setDescription(cursor.getString(cursor.getColumnIndexOrThrow(Hike.COL_DESCRIPTION)));
+                hike.setImage(cursor.getBlob(cursor.getColumnIndexOrThrow(Hike.COL_IMAGE)));
                 hikes.add(hike);
 
 
@@ -233,7 +237,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     // Insert Data into Database
-    public long insertHike(String name, String location, String date, int parkingAvailable, String length, String level, String description) {
+    public long insertHike(String name, String location, String date, int parkingAvailable, String length, String level, String description, byte[] image) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -244,6 +248,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(Hike.COL_LENGTH, length);
         values.put(Hike.COL_LEVEL, level);
         values.put(Hike.COL_DESCRIPTION, description);
+        values.put(Hike.COL_IMAGE, image);
+
 
 
         long id = db.insert(Hike.TABLE_NAME, null, values);
@@ -264,6 +270,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(Hike.COL_LENGTH, contact.getLength());
         values.put(Hike.COL_LEVEL, contact.getLevel());
         values.put(Hike.COL_DESCRIPTION, contact.getDescription());
+        values.put(Hike.COL_IMAGE, contact.getImage());
 
 
         int rowsUpdated = db.update(Hike.TABLE_NAME, values, Hike.COL_ID + " = ? ",

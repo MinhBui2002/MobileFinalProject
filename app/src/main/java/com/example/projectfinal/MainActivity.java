@@ -1,9 +1,14 @@
 package com.example.projectfinal;
 
+import android.Manifest;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -12,15 +17,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,6 +37,18 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.example.projectfinal.adapter.HikeAdapter;
 import com.example.projectfinal.db.DatabaseHelper;
 import com.example.projectfinal.db.entity.Hike;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
+
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
@@ -45,6 +65,16 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Hike> hikeArrayList = new ArrayList<>();
     private RecyclerView recyclerView;
     private DatabaseHelper db;
+
+    ImageView hikeImage;
+
+
+    final int REQUEST_CODE_GALLERY = 999;
+    final int REQUEST_CODE_LOCATION = 888;
+
+    private EditText hikeLocation; // Add this line to your existing variables
+    private LocationManager locationManager;
+    private LocationListener locationListener;
 
 
     @Override
@@ -87,6 +117,8 @@ public class MainActivity extends AppCompatActivity {
                 DeleteAllHikes();
             }
         });
+
+
     }
 
 
@@ -101,19 +133,68 @@ public class MainActivity extends AppCompatActivity {
 
         TextView hike_title = view.findViewById(R.id.hike_title);
         EditText hikeName = view.findViewById(R.id.edtName);
-        EditText hikeLocation = view.findViewById(R.id.edtLocation);
+        hikeLocation = view.findViewById(R.id.edtLocation);
+        Button hikeLocationButton = view.findViewById(R.id.btnLocation);
         Button hikeDatePicker = view.findViewById(R.id.btnDatePicker);
         RadioGroup hikeParking = view.findViewById(R.id.rgrpParking);
         TextView hkeDate = view.findViewById(R.id.txtDate);
         EditText hikeLength = view.findViewById(R.id.edtLength);
         EditText hikeLevel = view.findViewById(R.id.edtLevel);
         EditText hikeDescription = view.findViewById(R.id.edtDescription);
+        hikeImage = view.findViewById(R.id.imgHike);
+
         hikeDatePicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                popupDatePickerDialog(hikeDatePicker, hkeDate   );
+                popupDatePickerDialog(hikeDatePicker, hkeDate);
             }
         });
+
+        hikeImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //read external storage permission to select image from gallery
+                //runtime permission for devices android 6.0 and above
+                ActivityCompat.requestPermissions(
+                        MainActivity.this,
+                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                        REQUEST_CODE_GALLERY
+                );
+            }
+        });
+
+        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+
+
+
+
+
+        hikeLocationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE_LOCATION);
+                } else {
+                    // Fetch the location once
+                    Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                    if (lastKnownLocation != null) {
+                        try {
+                            Geocoder geocoder = new Geocoder(MainActivity.this, Locale.getDefault());
+                            List<Address> addresses = geocoder.getFromLocation(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude(), 1);
+
+                            if (!addresses.isEmpty()) {
+                                String address = addresses.get(0).getAddressLine(0);
+                                // Set the location in the EditText
+                                hikeLocation.setText(address);
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        });
+
 
         hike_title.setText(!isUpdated ? "Add New Hike" : "Edit Hike");
 
@@ -124,12 +205,13 @@ public class MainActivity extends AppCompatActivity {
             hikeLength.setText(String.valueOf(hike.getLength()));
             hikeLevel.setText(hike.getLevel());
             hikeDescription.setText(hike.getDescription());
-
+            hikeImage.setImageBitmap(BitmapFactory.decodeByteArray(hike.getImage(), 0, hike.getImage().length));
             int parkingAvailable = hike.isParkingAvailable();
             if (parkingAvailable != 1) {
                 RadioButton radioButton = view.findViewById(parkingAvailable);
                 radioButton.setChecked(true);
             }
+
         }
 
 
@@ -138,7 +220,6 @@ public class MainActivity extends AppCompatActivity {
                 .setPositiveButton(isUpdated ? "Update" : "Save", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
 
 
                         // Data validation
@@ -165,16 +246,16 @@ public class MainActivity extends AppCompatActivity {
                         }
 
                         if (isUpdated && hike != null) {
-                            updateHike(hikeName.getText().toString(), hikeLocation.getText().toString(), hkeDate.getText().toString(), hikeParking.getCheckedRadioButtonId(), hikeLength.getText().toString(), hikeLevel.getText().toString(), hikeDescription.getText().toString(), position);
+                            updateHike(hikeName.getText().toString(), hikeLocation.getText().toString(), hkeDate.getText().toString(), hikeParking.getCheckedRadioButtonId(), hikeLength.getText().toString(), hikeLevel.getText().toString(), hikeDescription.getText().toString(), imageViewToByte(hikeImage), position);
                         } else {
-                            createHike(hikeName.getText().toString(), hikeLocation.getText().toString(), hkeDate.getText().toString(), hikeParking.getCheckedRadioButtonId(), hikeLength.getText().toString(), hikeLevel.getText().toString(), hikeDescription.getText().toString());
+                            createHike(hikeName.getText().toString(), hikeLocation.getText().toString(), hkeDate.getText().toString(), hikeParking.getCheckedRadioButtonId(), hikeLength.getText().toString(), hikeLevel.getText().toString(), hikeDescription.getText().toString(), imageViewToByte(hikeImage));
                         }
                     }
                 }).setNegativeButton("Delete", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
-                        if (isUpdated){
+                        if (isUpdated) {
                             // confirm delete
                             AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                             builder.setTitle("Delete hike");
@@ -190,9 +271,9 @@ public class MainActivity extends AppCompatActivity {
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     dialogInterface.cancel();
                                 }
-                            }).show(    );
+                            }).show();
 
-                        }else {
+                        } else {
                             dialogInterface.cancel();
                         }
                     }
@@ -202,7 +283,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
 
 
-                            dialogInterface.cancel();
+                        dialogInterface.cancel();
 
 
                     }
@@ -231,7 +312,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     // Ideas is referenced from https://www.digitalocean.com/community/tutorials/android-date-time-picker-dialog
-    private void popupDatePickerDialog(Button hikeDatePicker,TextView hkeDate) {
+    private void popupDatePickerDialog(Button hikeDatePicker, TextView hkeDate) {
         final Calendar c = Calendar.getInstance();
 
 
@@ -246,7 +327,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onDateSet(DatePicker view, int year,
                                           int monthOfYear, int dayOfMonth) {
-                       hkeDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+                        hkeDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
 
 
                     }
@@ -258,13 +339,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     // create new hike
     // ideas from Mr. Manh 's "Contact App" project
-    private void createHike(String name, String location, String date, int parking, String length, String level, String description) {
+    private void createHike(String name, String location, String date, int parking, String length, String level, String description, byte[] image) {
 
 
-        long id = db.insertHike(name, location, date, parking, length, level, description);
+        long id = db.insertHike(name, location, date, parking, length, level, description, image);
         Hike hike = db.getHike(id);
         if (hike != null) {
             hikeArrayList.add(0, hike);
@@ -274,7 +354,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     // ideas from Mr. Manh 's "Contact App" project
-    private void updateHike(String name, String location, String date, int parking, String length, String level, String description, int position) {
+    private void updateHike(String name, String location, String date, int parking, String length, String level, String description, byte[] image, int position) {
 
         Hike hike = hikeArrayList.get(position);
         hike.setName(name);
@@ -284,6 +364,7 @@ public class MainActivity extends AppCompatActivity {
         hike.setLength(length);
         hike.setLevel(level);
         hike.setDescription(description);
+        hike.setImage(image);
 
         db.updateHike(hike);
         hikeArrayList.set(position, hike);
@@ -292,14 +373,82 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public static byte[] getBytes(Bitmap bitmap) {
+    public static byte[] imageViewToByte(ImageView image) {
+        Bitmap bitmap = ((BitmapDrawable) image.getDrawable()).getBitmap();
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 50, stream);
-        return stream.toByteArray();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] byteArray = stream.toByteArray();
+        return byteArray;
     }
 
-    public static Bitmap getImage(byte[] image) {
-        return BitmapFactory.decodeByteArray(image, 0, image.length);
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        switch (requestCode) {
+            case REQUEST_CODE_GALLERY:
+                handleGalleryPermissionResult(grantResults);
+                break;
+            case REQUEST_CODE_LOCATION:
+                handleLocationPermissionResult(grantResults);
+                break;
+            // Add more cases for other permission request codes if needed
+        }
+    }
+
+    private void handleGalleryPermissionResult(int[] grantResults) {
+        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            // Gallery permission granted, open gallery intent
+            Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
+            galleryIntent.setType("image/*");
+            startActivityForResult(galleryIntent, REQUEST_CODE_GALLERY);
+        } else {
+            Toast.makeText(this, "Don't have permission to access file location", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void handleLocationPermissionResult(int[] grantResults) {
+        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            // Location permission granted, request location updates
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return;
+            }
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+        } else {
+            Toast.makeText(this, "Don't have permission to access location", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == REQUEST_CODE_GALLERY && resultCode == RESULT_OK) {
+            Uri imageUri = data.getData();
+            CropImage.activity(imageUri)
+                    .setGuidelines(CropImageView.Guidelines.ON) //enable image guidlines
+                    .setAspectRatio(1, 1)// image will be square
+                    .start(this);
+        }
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if (resultCode == RESULT_OK) {
+                Uri resultUri = result.getUri();
+                //set image choosed from gallery to image view
+                hikeImage.setImageURI(resultUri);
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                Exception error = result.getError();
+            }
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
@@ -324,7 +473,6 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onCreateOptionsMenu(menu);
     }
-
 
 
 //

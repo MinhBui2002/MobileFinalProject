@@ -1,191 +1,228 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="10dp"
-    >
+    android:layout_height="match_parent">
 
-    <TextView android:id="@+id/hike_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
-        android:lineSpacingExtra="10sp"
-        android:text="New hike"
-        android:textSize="20sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/textView9"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Hike name" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:scrollbars="vertical">
 
-    <EditText
-        android:id="@+id/edtName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:gravity="top"
-        android:hint="Hike name"
-        android:inputType="textCapSentences|textMultiLine"
-        android:lines="4"
-        android:textSize="14sp" />
+        <TextView
+            android:id="@+id/hike_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:lineSpacingExtra="10sp"
+            android:text="New hike"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/textView10"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Hike location" />
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Hike name" />
 
-    <EditText
-        android:id="@+id/edtLocation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:gravity="top"
-        android:hint="Location"
-        android:inputType="textCapSentences|textMultiLine"
-        android:lines="4"
-        android:textSize="16sp" />
+        <EditText
+            android:id="@+id/edtName"
+            android:layout_width="match_parent"
+            android:layout_height="43dp"
+            android:background="@android:color/transparent"
+            android:gravity="top"
+            android:hint="Hike name"
+            android:inputType="textCapSentences|textMultiLine"
+            android:lines="4"
+            android:textSize="14sp" />
 
-    <TextView
-        android:id="@+id/txtDate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:gravity="top"
-        android:hint="Date"
-        android:inputType="textCapSentences|textMultiLine"
-        android:lines="4"
-        android:textSize="14sp" />
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Hike location" />
 
+        <EditText
+            android:id="@+id/edtLocation"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:background="@android:color/transparent"
+            android:gravity="top"
 
-    <Button
-        android:id="@+id/btnDatePicker"
-        android:layout_width="208dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@color/teal_700"
-        android:text="Date picking"
-        android:textAllCaps="false"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp" />
+            android:hint="Location"
+            android:inputType="textCapSentences|textMultiLine"
+            android:lines="4"
+            android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Parking availability" />
-
-    <RadioGroup
-        android:id="@+id/rgrpParking"
-        android:layout_width="392dp"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_gravity="center"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:gravity="center">
-
-        <!--adding a radio button -->
-
-        <!--adding a radio button -->
-
-        <RadioButton
-            android:id="@+id/rbtnYes"
-            android:layout_width="200dp"
+        <Button
+            android:id="@+id/btnLocation"
+            android:layout_width="208dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:checked="false"
-            android:padding="4dp"
-            android:text="Yes"
-            android:textAlignment="center"
-            android:textSize="20sp" />
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/teal_700"
+            android:text="Location picking"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp" />
 
-        <RadioButton
-            android:id="@+id/rbtnNo"
-            android:layout_width="200dp"
+        <TextView
+            android:id="@+id/txtDate"
+            android:layout_width="match_parent"
+            android:layout_height="39dp"
+            android:background="@android:color/transparent"
+            android:gravity="top"
+            android:hint="Date"
+            android:inputType="textCapSentences|textMultiLine"
+            android:lines="4"
+            android:textSize="14sp" />
+
+
+        <Button
+            android:id="@+id/btnDatePicker"
+            android:layout_width="208dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:checked="true"
-            android:padding="4dp"
-            android:text="No"
-            android:textAlignment="center"
-            android:textSize="20sp" />
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/teal_700"
+            android:text="Date picking"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp" />
 
-    </RadioGroup>
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Parking availability" />
 
-    <TextView
-        android:id="@+id/textView11"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Hike distance" />
+        <RadioGroup
+            android:id="@+id/rgrpParking"
+            android:layout_width="392dp"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:gravity="center">
 
-    <EditText
-        android:id="@+id/edtLength"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:gravity="top"
-        android:hint="Distance"
-        android:inputType="textCapSentences|textMultiLine"
-        android:lines="4"
-        android:textSize="14sp" />
+            <!--adding a radio button -->
 
-    <TextView
-        android:id="@+id/textView12"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Hike level" />
+            <!--adding a radio button -->
 
-    <EditText
-        android:id="@+id/edtLevel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:gravity="top"
-        android:hint="Level"
-        android:inputType="textCapSentences|textMultiLine"
-        android:lines="4"
-        android:textSize="14sp" />
+            <RadioButton
+                android:id="@+id/rbtnYes"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:checked="false"
+                android:padding="4dp"
+                android:text="Yes"
+                android:textAlignment="center"
+                android:textSize="14sp" />
 
-    <TextView
-        android:id="@+id/textView13"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Hike description" />
+            <RadioButton
+                android:id="@+id/rbtnNo"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:checked="true"
+                android:padding="4dp"
+                android:text="No"
+                android:textAlignment="center"
+                android:textSize="14sp" />
 
-    <EditText
-        android:id="@+id/edtDescription"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:gravity="top"
-        android:hint="Description"
-        android:inputType="textCapSentences|textMultiLine"
-        android:lines="4"
-        android:textSize="14sp" />
+        </RadioGroup>
 
-    <!--  -->
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Hike distance" />
 
-<!--    <ImageView-->
-<!--        android:id="@+id/image_select"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        tools:srcCompat="@tools:sample/avatars" />-->
+        <EditText
+            android:id="@+id/edtLength"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:background="@android:color/transparent"
+            android:gravity="top"
+            android:hint="Distance"
+            android:inputType="textCapSentences|textMultiLine"
+            android:lines="4"
+            android:textSize="14sp" />
 
-<!--    <Button-->
-<!--        android:id="@+id/button"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Select image" />-->
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Hike level" />
 
-</LinearLayout>
+        <EditText
+            android:id="@+id/edtLevel"
+            android:layout_width="match_parent"
+            android:layout_height="41dp"
+            android:background="@android:color/transparent"
+            android:gravity="top"
+            android:hint="Level"
+            android:inputType="textCapSentences|textMultiLine"
+            android:lines="4"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Hike description" />
+
+        <EditText
+            android:id="@+id/edtDescription"
+            android:layout_width="match_parent"
+            android:layout_height="34dp"
+            android:background="@android:color/transparent"
+            android:gravity="top"
+            android:hint="Description"
+            android:inputType="textCapSentences|textMultiLine"
+            android:lines="4"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Hike image" />
+
+        <ImageView
+            android:id="@+id/imgHike"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="12dp"
+            android:src="@drawable/ic_image" />
+
+        <!--  -->
+
+        <!--    <ImageView-->
+        <!--        android:id="@+id/image_select"-->
+        <!--        android:layout_width="match_parent"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        tools:srcCompat="@tools:sample/avatars" />-->
+
+        <!--    <Button-->
+        <!--        android:id="@+id/button"-->
+        <!--        android:layout_width="match_parent"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        android:text="Select image" />-->
+
+    </LinearLayout>
+
+</ScrollView>

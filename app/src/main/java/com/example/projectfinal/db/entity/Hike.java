@@ -1,7 +1,6 @@
 package com.example.projectfinal.db.entity;
 
 
-
 public class Hike {
 
     public static final String TABLE_NAME = "hikes";
@@ -10,7 +9,7 @@ public class Hike {
 
     public static final String COL_NAME = "hike_name";
 
-    public static  final String COL_LOCATION = "hike_location";
+    public static final String COL_LOCATION = "hike_location";
 
     public static final String COL_DATE = "hike_date";
 
@@ -22,6 +21,7 @@ public class Hike {
 
     public static final String COL_DESCRIPTION = "hike_description";
 
+    public static final String COL_IMAGE = "hike_image";
 
 
     private String name;
@@ -31,6 +31,9 @@ public class Hike {
     private String length;
     private String level;
     private String description;
+
+
+    private byte[] image;
 
     private long id;
 
@@ -43,7 +46,7 @@ public class Hike {
         this.id = id;
     }
 
-    public Hike(String name, String location, String date, int parkingAvailable, String length, String level, String description, long id) {
+    public Hike(String name, String location, String date, int parkingAvailable, String length, String level, String description, byte[] image, long id) {
         this.name = name;
         this.location = location;
         this.date = date;
@@ -51,6 +54,7 @@ public class Hike {
         this.length = length;
         this.level = level;
         this.description = description;
+        this.image = image;
         this.id = id;
     }
 
@@ -113,6 +117,14 @@ public class Hike {
     public Hike() {
     }
 
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
     public static final String CREATE_TABLE =
             "CREATE TABLE " + TABLE_NAME + "("
                     + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -122,6 +134,7 @@ public class Hike {
                     + COL_PARKING + " TEXT,"
                     + COL_LENGTH + " TEXT,"
                     + COL_LEVEL + " TEXT,"
-                    + COL_DESCRIPTION + " TEXT"
+                    + COL_DESCRIPTION + " TEXT,"
+                    + COL_IMAGE + " BLOB"
                     + ")";
 }
