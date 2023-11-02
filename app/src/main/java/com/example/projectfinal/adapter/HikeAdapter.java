@@ -24,14 +24,14 @@ import java.util.ArrayList;
 
 public class HikeAdapter extends RecyclerView.Adapter<HikeAdapter.HikeViewHolder> implements Filterable {
     // Variables
-    private Context context;
-    private ArrayList<Hike> hikesList;
+    private final Context context;
+    private final ArrayList<Hike> hikesList;
 
     // This list is used to store all hikes (before filtering).
-    private ArrayList<Hike> hikesListAll;
+    private final ArrayList<Hike> hikesListAll;
 
     // A reference to the MainActivity.
-    private MainActivity mainActivity;
+    private final MainActivity mainActivity;
 
     // Inner class representing the ViewHolder for each item in the RecyclerView.
     public class HikeViewHolder extends RecyclerView.ViewHolder {
@@ -123,16 +123,6 @@ public class HikeAdapter extends RecyclerView.Adapter<HikeAdapter.HikeViewHolder
                 for (Hike hike : hikesListAll) {
                     if (hike.getName().toLowerCase().contains(charSequence.toString().toLowerCase())) {
                         filteredList.add(hike);
-                    } else if (hike.getLocation().toLowerCase().contains(charSequence.toString().toLowerCase())) {
-                        filteredList.add(hike);
-                    } else if (hike.getLength().toLowerCase().contains(charSequence.toString().toLowerCase())) {
-                        filteredList.add(hike);
-                    } else if (hike.getLevel().toLowerCase().contains(charSequence.toString().toLowerCase())) {
-                        filteredList.add(hike);
-                    } else if (hike.getDate().toLowerCase().contains(charSequence.toString().toLowerCase())) {
-                        filteredList.add(hike);
-                    } else if (hike.getDescription().toLowerCase().contains(charSequence.toString().toLowerCase())) {
-                        filteredList.add(hike);
                     }
 
                 }
@@ -157,6 +147,14 @@ public class HikeAdapter extends RecyclerView.Adapter<HikeAdapter.HikeViewHolder
             notifyDataSetChanged(); // Notify the adapter of data changes.
         }
     };
+
+
+    public void clearAll() {
+        hikesListAll.clear();
+        notifyDataSetChanged();
+    }
+
+
 }
 
 

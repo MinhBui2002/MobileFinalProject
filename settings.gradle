@@ -13,5 +13,5 @@ dependencyResolutionManagement {
         jcenter()//Add this but this will give you deprecated API
     }
 }
-rootProject.name = "ProjectFinal"
+rootProject.name = "project_final_native"
 include ':app'

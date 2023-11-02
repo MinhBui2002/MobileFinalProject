@@ -19,9 +19,9 @@ import java.util.ArrayList;
 
 public class ObserveAdapter extends RecyclerView.Adapter<ObserveAdapter.ObservationViewHolder> {
     //  Variables
-    private Context context;
-    private ArrayList<Observation> obsList;
-    private ObserveActivity observeActivity;
+    private final Context context;
+    private final ArrayList<Observation> obsList;
+    private final ObserveActivity observeActivity;
 
     //  ViewHolder
     public class ObservationViewHolder extends RecyclerView.ViewHolder {

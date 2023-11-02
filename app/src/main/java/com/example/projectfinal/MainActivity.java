@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Variables
     private HikeAdapter hikeAdapter;
-    private ArrayList<Hike> hikeArrayList = new ArrayList<>();
+    private final ArrayList<Hike> hikeArrayList = new ArrayList<>();
     private RecyclerView recyclerView;
     private DatabaseHelper db;
 
@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         // Toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("My Hikes");
 
@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(hikeAdapter);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -117,6 +117,8 @@ public class MainActivity extends AppCompatActivity {
                 DeleteAllHikes();
             }
         });
+
+
 
 
     }
@@ -205,6 +207,7 @@ public class MainActivity extends AppCompatActivity {
             hikeLength.setText(String.valueOf(hike.getLength()));
             hikeLevel.setText(hike.getLevel());
             hikeDescription.setText(hike.getDescription());
+            //
             hikeImage.setImageBitmap(BitmapFactory.decodeByteArray(hike.getImage(), 0, hike.getImage().length));
             int parkingAvailable = hike.isParkingAvailable();
             if (parkingAvailable != 1) {
@@ -305,8 +308,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void DeleteAllHikes() {
-        db.deleteAllHikes();
         hikeArrayList.clear();
+        db.deleteAllHikes();
+
+
         hikeAdapter.notifyDataSetChanged();
     }
 

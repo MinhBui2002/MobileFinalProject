@@ -7,6 +7,15 @@
         android:icon="@drawable/ic_search"
         android:iconTint="#FFFFFF"
         android:title="Search"
+        android:visible="true"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:showAsAction="always|collapseActionView" />
+    <item
+        android:id="@+id/action_delete"
+        android:icon="@drawable/ic_delete"
+        android:iconTint="#FFFFFF"
+        android:title="Search"
+        android:visible="true"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="always|collapseActionView" />
 

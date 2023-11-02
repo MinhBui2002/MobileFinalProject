@@ -297,4 +297,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
+    public void clearHikesListAll() {
+
+    }
 }

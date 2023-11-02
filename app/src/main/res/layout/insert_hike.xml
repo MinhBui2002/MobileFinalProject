@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/rounded_background">
+
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -12,23 +14,27 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="10dp"
-        android:scrollbars="vertical">
+        android:scrollbars="vertical"
+        android:background="@color/colorPrimary"
+        >
 
         <TextView
             android:id="@+id/hike_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
-            android:lineSpacingExtra="10sp"
-            android:text="New hike"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:layout_gravity="center"
+            android:fontFamily="@font/poppins_medium"
+            android:text="Add hike"
+            android:textColor="@color/colorBlue"
+            android:textSize="28sp"  />
 
         <TextView
             android:id="@+id/textView9"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Hike name" />
+            android:text="Hike name"
+            android:textColor="@color/black"
+            android:fontFamily="@font/poppins_medium"/>
 
         <EditText
             android:id="@+id/edtName"
@@ -45,7 +51,9 @@
             android:id="@+id/textView10"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Hike location" />
+            android:text="Hike location"
+            android:textColor="@color/black"
+            android:fontFamily="@font/poppins_medium"/>
 
         <EditText
             android:id="@+id/edtLocation"
@@ -82,7 +90,9 @@
             android:hint="Date"
             android:inputType="textCapSentences|textMultiLine"
             android:lines="4"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/poppins_medium"/>
 
 
         <Button
@@ -104,7 +114,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Parking availability" />
+            android:text="Parking availability"
+            android:textColor="@color/black"
+            android:fontFamily="@font/poppins_medium"/>
 
         <RadioGroup
             android:id="@+id/rgrpParking"
@@ -148,7 +160,9 @@
             android:id="@+id/textView11"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Hike distance" />
+            android:text="Hike distance"
+            android:textColor="@color/black"
+            android:fontFamily="@font/poppins_medium"/>
 
         <EditText
             android:id="@+id/edtLength"
@@ -157,15 +171,20 @@
             android:background="@android:color/transparent"
             android:gravity="top"
             android:hint="Distance"
-            android:inputType="textCapSentences|textMultiLine"
+
+            android:inputType="number"
             android:lines="4"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/poppins_medium"/>
 
         <TextView
             android:id="@+id/textView12"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Hike level" />
+            android:text="Hike level"
+            android:textColor="@color/black"
+            android:fontFamily="@font/poppins_medium"/>
 
         <EditText
             android:id="@+id/edtLevel"
@@ -182,7 +201,9 @@
             android:id="@+id/textView13"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Hike description" />
+            android:text="Hike description"
+            android:textColor="@color/black"
+            android:fontFamily="@font/poppins_medium"/>
 
         <EditText
             android:id="@+id/edtDescription"
@@ -199,7 +220,9 @@
             android:id="@+id/textView14"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Hike image" />
+            android:text="Hike image"
+            android:textColor="@color/black"
+            android:fontFamily="@font/poppins_medium"/>
 
         <ImageView
             android:id="@+id/imgHike"
